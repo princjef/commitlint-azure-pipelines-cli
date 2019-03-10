@@ -1,5 +1,9 @@
 # commitlint-azure-pipelines-cli
 
+[![Build Status](https://dev.azure.com/princjef/commitlint-azure-pipelines-cli/_apis/build/status/princjef.commitlint-azure-pipelines-cli?branchName=master)](https://dev.azure.com/princjef/commitlint-azure-pipelines-cli/_build/latest?definitionId=1&branchName=master)
+[![Code Coverage](https://img.shields.io/azure-devops/coverage/princjef/commitlint-azure-pipelines-cli/1.svg)](https://dev.azure.com/princjef/commitlint-azure-pipelines-cli/_build/latest?definitionId=1&branchName=master&view=codecoverage-tab)
+[![npm version](https://img.shields.io/npm/v/commitlint-azure-pipelines-cli.svg)](https://npmjs.org/package/commitlint-azure-pipelines-cli)
+
 Lint relevant commits for a branch or Pull Request in [Azure Pipelines][] using
 [commitlint][] with no configuration needed.
 
