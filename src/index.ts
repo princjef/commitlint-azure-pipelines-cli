@@ -35,13 +35,7 @@ async function lastPrCommit(): Promise<string> {
 }
 
 async function lastTargetCommit(): Promise<string> {
-  const { stdout } = await execa('git', [
-    'log',
-    '-n',
-    '1',
-    '--pretty=format:%H',
-    process.env.SYSTEM_PULLREQUEST_TARGETBRANCH!
-  ]);
+  const { stdout } = await execa('git', ['rev-parse', 'HEAD^1']);
   return stdout;
 }
 
