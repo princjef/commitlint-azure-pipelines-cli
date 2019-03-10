@@ -1,6 +1,6 @@
 {
   "name": "commitlint-azure-pipelines-cli",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Lint relevant commits for a branch or PR in Azure Pipelines",
   "main": "dist/index.js",
   "bin": {
