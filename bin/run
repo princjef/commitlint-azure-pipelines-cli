@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+require('../dist').default().catch(err => {
+    console.log(err);
+    process.exit(1);
+});
+

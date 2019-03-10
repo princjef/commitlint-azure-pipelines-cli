@@ -1,0 +1,78 @@
+variables:
+  - group: semantic-release
+
+trigger:
+  - master
+
+pr:
+  - master
+
+jobs:
+  - job: commitlint
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: 10.x
+        displayName: Use Node.js 10
+      - script: npm ci
+        displayName: Install Dependencies
+      - script: npm run build
+        displayName: Build
+      - script: |
+          chmod a+x ./bin/run
+          ./bin/run
+        workingDirectory: $(Build.SourcesDirectory)
+        displayName: Lint Commits
+
+  - job: Test
+    strategy:
+      matrix:
+        linux:
+          imageName: 'ubuntu-16.04'
+        mac:
+          imageName: 'macos-10.13'
+        windows:
+          imageName: 'vs2017-win2016'
+    pool:
+      vmImage: $(imageName)
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: 10.x
+        displayName: Use Node.js 10
+      - script: npm ci
+        displayName: Install Dependencies
+      - script: npm test
+        displayName: Run Tests
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: JUnit
+          testResultsFiles: junit.xml
+      - task: PublishCodeCoverageResults@1
+        inputs:
+          codeCoverageTool: Cobertura
+          summaryFileLocation: coverage/cobertura-coverage.xml
+          reportDirectory: coverage
+
+  - job: publish
+    dependsOn:
+      - commitlint
+      - test
+    pool:
+      vmImage: 'ubuntu-16.04'
+    condition: and(succeeded(), in(variables['Build.Reason'], 'Manual', 'IndividualCI', 'BatchedCI'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: 10.x
+        displayName: Use Node.js 10
+      - script: npm ci
+        displayName: Install Dependencies
+      - script: npm run release
+        env:
+          GH_TOKEN: $(GH_TOKEN)
+          NPM_TOKEN: $(NPM_TOKEN)
+        displayName: Publish to NPM

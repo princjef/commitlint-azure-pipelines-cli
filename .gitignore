@@ -1,0 +1,12 @@
+# Node.js
+node_modules/
+
+# Build output
+/dist/
+
+# Pack output
+*.tgz
+
+# Test output
+/coverage/
+/junit.xml
