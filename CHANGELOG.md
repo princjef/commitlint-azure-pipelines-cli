@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/princjef/commitlint-azure-pipelines-cli/compare/v1.0.1...v1.0.2) (2019-06-04)
+
+
+### Bug Fixes
+
+* **deps:** add support for commitlint 8 ([#3](https://github.com/princjef/commitlint-azure-pipelines-cli/issues/3)) ([1b256b0](https://github.com/princjef/commitlint-azure-pipelines-cli/commit/1b256b0))
+
 ## [1.0.1](https://github.com/princjef/commitlint-azure-pipelines-cli/compare/v1.0.0...v1.0.1) (2019-03-10)
 
 
