@@ -41,9 +41,8 @@ jobs:
 
 ## Compatibility
 
-This package is only tested against the latest Node.js LTS release. Make sure
-you select the latest LTS release for your commitlint step/job. This task is
-tested against all of the hosted operating systems (win, mac, linux).
+This package is only tested against Node.js 10.x and up. This task is tested
+against all of the hosted operating systems (win, mac, linux).
 
 [azure pipelines]: https://azure.microsoft.com/en-us/services/devops/pipelines/
 [commitlint]: https://github.com/conventional-changelog/commitlint
