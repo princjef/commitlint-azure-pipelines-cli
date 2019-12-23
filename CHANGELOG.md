@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/princjef/commitlint-azure-pipelines-cli/compare/v1.0.2...v1.0.3) (2019-12-23)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies to latest ([#8](https://github.com/princjef/commitlint-azure-pipelines-cli/issues/8)) ([5cc0853](https://github.com/princjef/commitlint-azure-pipelines-cli/commit/5cc08534381d359dad1ed3c26fcb1b9984e672e3))
+
 ## [1.0.2](https://github.com/princjef/commitlint-azure-pipelines-cli/compare/v1.0.1...v1.0.2) (2019-06-04)
 
 
