@@ -1,3 +1,12 @@
+## [1.0.4](https://github.com/princjef/commitlint-azure-pipelines-cli/compare/v1.0.3...v1.0.4) (2022-12-05)
+
+
+### Bug Fixes
+
+* **commitlint:** remove body limit on commit ([c158b51](https://github.com/princjef/commitlint-azure-pipelines-cli/commit/c158b51469a0b9814f2533d0f8c8cc60a182bdb9))
+* **commitlint:** remove footer limit on commit ([d4b764c](https://github.com/princjef/commitlint-azure-pipelines-cli/commit/d4b764ce00c890e4ecc85b0b15d41e2e07adfde6))
+* **deps:** update dependencies and pipeline configuration ([#26](https://github.com/princjef/commitlint-azure-pipelines-cli/issues/26)) ([47e2191](https://github.com/princjef/commitlint-azure-pipelines-cli/commit/47e2191baf0b73b28720eda0ec119c132c1a61eb))
+
 ## [1.0.3](https://github.com/princjef/commitlint-azure-pipelines-cli/compare/v1.0.2...v1.0.3) (2019-12-23)
 
 
