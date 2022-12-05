@@ -10,12 +10,12 @@ pr:
 jobs:
   - job: commitlint
     pool:
-      vmImage: 'ubuntu-16.04'
+      vmImage: 'ubuntu-latest'
     steps:
       - task: NodeTool@0
         inputs:
-          versionSpec: 10.x
-        displayName: Use Node.js 10
+          versionSpec: 18.x
+        displayName: Use Node.js 18
       - script: npm ci
         displayName: Install Dependencies
       - script: npm run build
@@ -30,18 +30,18 @@ jobs:
     strategy:
       matrix:
         linux:
-          imageName: 'ubuntu-16.04'
+          imageName: 'ubuntu-latest'
         mac:
-          imageName: 'macos-10.13'
+          imageName: 'macos-latest'
         windows:
-          imageName: 'vs2017-win2016'
+          imageName: 'windows-latest'
     pool:
       vmImage: $(imageName)
     steps:
       - task: NodeTool@0
         inputs:
-          versionSpec: 10.x
-        displayName: Use Node.js 10
+          versionSpec: 18.x
+        displayName: Use Node.js 18
       - script: npm ci
         displayName: Install Dependencies
       - script: npm test
@@ -62,13 +62,13 @@ jobs:
       - commitlint
       - test
     pool:
-      vmImage: 'ubuntu-16.04'
+      vmImage: 'ubuntu-latest'
     condition: and(succeeded(), in(variables['Build.Reason'], 'Manual', 'IndividualCI', 'BatchedCI'), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     steps:
       - task: NodeTool@0
         inputs:
-          versionSpec: 10.x
-        displayName: Use Node.js 10
+          versionSpec: 18.x
+        displayName: Use Node.js 18
       - script: npm ci
         displayName: Install Dependencies
       - script: npm run release

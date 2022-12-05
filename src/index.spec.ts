@@ -35,7 +35,7 @@ describe('commitlint-azure-pipelines-cli', () => {
     await run({
       TF_BUILD: 'True',
       BUILD_REASON: 'IndividualCI',
-      BUILD_SOURCEVERSION: hash
+      BUILD_SOURCEVERSION: hash,
     });
   });
 
@@ -47,7 +47,7 @@ describe('commitlint-azure-pipelines-cli', () => {
       run({
         TF_BUILD: 'True',
         BUILD_REASON: 'IndividualCI',
-        BUILD_SOURCEVERSION: hash
+        BUILD_SOURCEVERSION: hash,
       })
     ).rejects.toThrow();
   });
@@ -59,12 +59,12 @@ describe('commitlint-azure-pipelines-cli', () => {
     await run({
       TF_BUILD: 'True',
       BUILD_REASON: 'IndividualCI',
-      BUILD_SOURCEVERSION: hash
+      BUILD_SOURCEVERSION: hash,
     });
   });
 
   it('validates all added commits for pull requests', async () => {
-    await repo.commit('chore: master commit');
+    await repo.commit('chore: main commit');
     await repo.fork('fork');
 
     await repo.commit('chore: fork commit 1');
@@ -75,12 +75,12 @@ describe('commitlint-azure-pipelines-cli', () => {
       TF_BUILD: 'True',
       BUILD_REASON: 'PullRequest',
       BUILD_SOURCEBRANCH: 'refs/heads/pr',
-      SYSTEM_PULLREQUEST_TARGETBRANCH: 'refs/heads/master'
+      SYSTEM_PULLREQUEST_TARGETBRANCH: 'refs/heads/main',
     });
   });
 
   it('fails if the latest PR commit is invalid', async () => {
-    await repo.commit('chore: master commit');
+    await repo.commit('chore: main commit');
     await repo.fork('fork');
 
     await repo.commit('chore: fork commit 1');
@@ -92,13 +92,13 @@ describe('commitlint-azure-pipelines-cli', () => {
         TF_BUILD: 'True',
         BUILD_REASON: 'PullRequest',
         BUILD_SOURCEBRANCH: 'refs/heads/pr',
-        SYSTEM_PULLREQUEST_TARGETBRANCH: 'refs/heads/master'
+        SYSTEM_PULLREQUEST_TARGETBRANCH: 'refs/heads/main',
       })
     ).rejects.toThrow();
   });
 
   it('fails if another PR commit is invalid', async () => {
-    await repo.commit('chore: master commit');
+    await repo.commit('chore: main commit');
     await repo.fork('fork');
 
     await repo.commit('bad commit message');
@@ -110,7 +110,7 @@ describe('commitlint-azure-pipelines-cli', () => {
         TF_BUILD: 'True',
         BUILD_REASON: 'PullRequest',
         BUILD_SOURCEBRANCH: 'refs/heads/pr',
-        SYSTEM_PULLREQUEST_TARGETBRANCH: 'refs/heads/master'
+        SYSTEM_PULLREQUEST_TARGETBRANCH: 'refs/heads/main',
       })
     ).rejects.toThrow();
   });
@@ -127,7 +127,7 @@ describe('commitlint-azure-pipelines-cli', () => {
       TF_BUILD: 'True',
       BUILD_REASON: 'PullRequest',
       BUILD_SOURCEBRANCH: 'refs/heads/pr',
-      SYSTEM_PULLREQUEST_TARGETBRANCH: 'refs/heads/master'
+      SYSTEM_PULLREQUEST_TARGETBRANCH: 'refs/heads/main',
     });
   });
 });
@@ -163,7 +163,7 @@ function mockEnvironment(env: NodeJS.ProcessEnv) {
 
   process.env = {
     ...newProcessEnv,
-    ...env
+    ...env,
   };
 
   return () => {
@@ -174,9 +174,9 @@ function mockEnvironment(env: NodeJS.ProcessEnv) {
 
 async function initRepo(): Promise<RepoOps> {
   await util.promisify(fs.mkdir)(REPO_DIR);
-  await execa('git', ['init'], { cwd: REPO_DIR });
+  await execa('git', ['init', '-b', 'main'], { cwd: REPO_DIR });
   await execa('git', ['config', 'user.email', 'test@test.com'], {
-    cwd: REPO_DIR
+    cwd: REPO_DIR,
   });
   await execa('git', ['config', 'user.name', 'Test'], { cwd: REPO_DIR });
 
@@ -201,7 +201,7 @@ async function initRepo(): Promise<RepoOps> {
     async fork(branch: string, commitsBehind: number = 0) {
       if (commitsBehind > 0) {
         await execa('git', ['checkout', `HEAD~${commitsBehind}`], {
-          cwd: REPO_DIR
+          cwd: REPO_DIR,
         });
       }
 
@@ -209,7 +209,7 @@ async function initRepo(): Promise<RepoOps> {
     },
 
     async pr(branch: string, prBranch: string) {
-      await execa('git', ['checkout', 'master'], { cwd: REPO_DIR });
+      await execa('git', ['checkout', 'main'], { cwd: REPO_DIR });
       await execa('git', ['checkout', '-b', prBranch], { cwd: REPO_DIR });
       await execa(
         'git',
@@ -221,7 +221,7 @@ async function initRepo(): Promise<RepoOps> {
 
     async cleanUp() {
       await util.promisify(rimraf)(path.join(REPO_DIR));
-    }
+    },
   };
 }
 
