@@ -21,7 +21,7 @@ async function getCommitRange(): Promise<{ from: string; to: string }> {
   if (isPR()) {
     return {
       from: await lastTargetCommit(),
-      to: await lastPrCommit()
+      to: await lastPrCommit(),
     };
   }
 
@@ -46,15 +46,15 @@ async function lint(fromHash: string, toHash: string): Promise<void> {
       '-n',
       '1',
       '--pretty=format:%B',
-      fromHash
+      fromHash,
     ]);
     await execa(commitlint, [], {
       stdio: ['pipe', 'inherit', 'inherit'],
-      input: stdout
+      input: stdout,
     });
   } else {
     await execa(commitlint, ['--from', fromHash, '--to', toHash], {
-      stdio: ['pipe', 'inherit', 'inherit']
+      stdio: ['pipe', 'inherit', 'inherit'],
     });
   }
 }
