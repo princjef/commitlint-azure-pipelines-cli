@@ -44,7 +44,7 @@
     "execa": "^5.1.1"
   },
   "peerDependencies": {
-    "@commitlint/cli": "^7.0.0 || ^8.0.0"
+    "@commitlint/cli": ">=7.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
